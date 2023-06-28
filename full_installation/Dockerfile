@@ -28,12 +28,3 @@ RUN cd /tmp \
     && rm -rf /tmp/*
 
 ENV PATH="/usr/local/texlive/2023/bin/x86_64-linux:${PATH}"
-
-# Copy entrypoint.sh
-COPY entrypoint.sh /entrypoint.sh
-
-# Give execution permissions to entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-# Run entrypoint.sh
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
