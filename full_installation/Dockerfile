@@ -1,5 +1,5 @@
 # Base Image
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 # Non-Interactive
 ENV DEBIAN_FRONTEND=noninteractive 
@@ -27,4 +27,11 @@ RUN cd /tmp \
     && perl ./install-tl --no-interaction \
     && rm -rf /tmp/*
 
-ENV PATH="/usr/local/texlive/2023/bin/x86_64-linux:${PATH}"
+# Set the PATH based on the architecture
+RUN if [ "$(uname -m)" = "x86_64" ]; then \
+        echo 'export PATH="/usr/local/texlive/2024/bin/x86_64-linux:${PATH}"' >> /etc/profile.d/texlive.sh; \
+    elif [ "$(uname -m)" = "aarch64" ]; then \
+        echo 'export PATH="/usr/local/texlive/2024/bin/aarch64-linux:${PATH}"' >> /etc/profile.d/texlive.sh; \
+    fi
+
+RUN . /etc/profile.d/texlive.sh

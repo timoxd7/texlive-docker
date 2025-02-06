@@ -6,7 +6,7 @@ With this Dockerfile, you can create a Docker Image that holds a full texlive in
 
 Just run
 
-    docker build -t username/tag:release ./
+    docker buildx build --push --platform linux/arm64,linux/amd64 -t username/tag:release ./
 
 while changing username, tag and release.
 
